@@ -1,13 +1,13 @@
 module.exports = function () {
-	var clients,
+	var clients = [],
 	    exists,
 	    addClient,
 	    removeClient,
+		importFrom,
+		exportTo,
 	    count,
-	    clientById,
-		handlers,
-		setHandlers;
-	clients = [];
+	    clientById;
+	
 	// Verifica se cliente já existe
 	exists = function (client) {
 		return clients.indexOf(client) >= 0;
@@ -15,10 +15,6 @@ module.exports = function () {
 	// Adiciona cliente
 	addClient = function (client) {
 		if (!exists(client)) {
-			// primeiro remove listeners
-			client.removeAllListeners();
-			// executa função setHandlers
-			handlers(client);
 			clients.push(client);
 		}
 	};
@@ -44,16 +40,13 @@ module.exports = function () {
 		}
 		return false;
 	};
-	// Adiciona Handlers
-	setHandlers = function(h){
-	   handlers = h;
-	};
+
+	// Retorna interface pública
 	return {
 		addClient : addClient,
 		removeClient : removeClient,
 		count : count,
 		clientById : clientById,
-		exists : exists,
-		setHandlers : setHandlers
+		exists : exists
 	};
 }();
