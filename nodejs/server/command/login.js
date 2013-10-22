@@ -2,25 +2,29 @@ module.exports = (function () {
 	var user = "user",
 	password = "pass",
 	client,
-	jdata,
+	data,
 	can,
 	toDo,
 	that = this;
 
 	can = function () {
-		return jdata.login;
+		// É solicitação de login ?
+			return data.login;
+
 	};
 	toDo = function () {
-		if (jdata.login.user === user && jdata.login.password === password) {
+		// Responde success ou failed
+		if (data.login.username === user && data.login.password === password) {
+			client.send('{"login" : "success"}');
 			client.mediator.transferTo(client, client.mediator.patio);
-			console.log("acesso permitido: " + client.uid);
+			
 		} else {
-			console.log("acesso negado: " + client.uid);
+			client.send('{"login" : "failed"}');
 		}
 	};
-	return function (cli, jda) {
+	return function (cli, dat) {
 		client = cli;
-		jdata = jda;
+		data = dat;
 		if (can()) {
 			toDo();
 		}

@@ -1,40 +1,34 @@
 var MY_APP = {
-	net : require('net'),
+
 	mediator : require('./mediator'),
-	clientCreate : require('./clientCreate'),
-	limbo : require('./place'),
-	patio : require('./place')
+	clientCreate : require('./create/clientCreate'),
+	placeCreate : require('./create/placeCreate'),
+	WebSocketServer : require('ws').Server
 
 };
+
 MY_APP.init = function () {
-	var that = this;
-	this.mediator.patio = this.patio;
-	this.mediator.limbo = this.limbo;
-	
-	// Inicia conex„o de jogo
-	this.net.createServer(function (socket) {
+	var that = this,
+        socket = new this.WebSocketServer({port: 5000});	
+	this.mediator.patio = this.placeCreate('patio');
+	this.mediator.limbo = this.placeCreate('limbo');
+
+	// Inicia conex√£o de jogo
+	socket.on('connection', function(socket) {
 		that.initClient(socket);
-	}).listen(5000, '127.0.0.1');
-	console.log("Chat server running at port 5000\n");
-	
-	// Inicia conex„o de admin
-	this.net.createServer(function (socket) {
-		console.log(that.mediator.clients);
-	}).listen(8000, '127.0.0.1');
-};
+    });
+};	
+
 MY_APP.initClient = function (socket) {
 	// Cria objeto client a partir do socket TCP
-	var client = this.clientCreate(socket);
-	
-	
+	var client = this.clientCreate(socket);	
 	
 	// Configura mediator no cliente
 	this.mediator.startClient(client, this.mediator);
 	
 	// Envia cliente para o limbo
-	this.mediator.transferTo(client, this.limbo);	
-	
-	console.log(client.place);
+	this.mediator.transferTo(client, this.mediator.limbo);	
+
 	
 	
 };

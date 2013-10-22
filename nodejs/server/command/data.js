@@ -1,26 +1,26 @@
 module.exports = (function () {
 	var client,
-	    jdata,
+	    data,
 	    can,
 	    toDo,
 	    that = this;
 
 	can = function () {
-		return jdata.login === undefined;
+		// verifica se é uma requisição
+		return data.login === undefined;
 	};
 	toDo = function () {
 		var key,
-		clients = client.mediator.clients;
+			clients = client.place.getClients();
 		for (key in clients) {
-			if (clients[key] != client) {
-				clients[key].socket.write(JSON.stringify(jdata).toString());
+			if (clients[key] !== client) {
+				clients[key].send(JSON.stringify(data));
 			}
 		}
-
 	};
-	return function (cli, jda) {		
+	return function (cli, dat) {
 		client = cli;
-		jdata = jda;
+		data = dat;
 		if (can()) {
 			toDo();
 		}
