@@ -41,7 +41,6 @@ module.exports = (function () {
 					}
 				}
 			}
-			console.log(client.uid + " desconectou");
 		};
 		// Conta clientes
 		count = function () {

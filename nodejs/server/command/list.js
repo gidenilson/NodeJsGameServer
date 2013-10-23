@@ -16,7 +16,7 @@ module.exports = (function () {
 		for (i = 0; i < clients.length; i += 1) {
 			list.push(clients[i].uid);
 		}
-		client.send('{"list : "' + JSON.stringify(list) + '"}');
+		client.send('{"list" : ' + JSON.stringify(list) + '}');
 		
 	};
 	return function (cli, dat) {

@@ -15,11 +15,12 @@ module.exports = (function () {
 	toDo = function () {
 		// Responde success ou failed
 		if (data.login.username === user && data.login.password === password) {
-			client.send('{"login" : "success"}');
+			client.send('{"login" : "'+client.uid+'"}');
 			client.mediator.transferTo(client, client.mediator.patio);
+
 			
 		} else {
-			client.send('{"login" : "failed"}');
+			client.send('{"login" : "0"}');
 		}
 	};
 	return function (cli, dat) {
