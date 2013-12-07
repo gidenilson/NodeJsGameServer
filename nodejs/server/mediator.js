@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = (function () {
 	// Inicializa objetos
 	var limbo,
 		objectType = "mediator",
@@ -7,12 +7,13 @@ module.exports = function () {
 		rooms = [],
 		onData,
 		onClose,
+		startClient,
 		login,
-		transferTo,
-		that = this;
+		transferTo;
 	// Trata recebimento de dados
 	onData = function (client, data) {
-		var cmdLogin = require('./command/login'),
+		var jdata,
+			cmdLogin = require('./command/login'),
 		    cmdData = require('./command/data'),
 			cmdList = require('./command/list');
 		try {
@@ -25,9 +26,9 @@ module.exports = function () {
 			client.send('{"error" : "invalid json"}');
 			console.log("erro no JSON recebido");
 			console.log(err);
-		}			
+		}
 	};
-	// Trata saída do cliente
+	// Trata saï¿½da do cliente
 	onClose = function (client) {
 		client.place.removeClient(client);
 	};
@@ -56,11 +57,11 @@ module.exports = function () {
 		console.log("client " + client.uid + " transferred to " + place.getTitle());
 	};
 
-	// Retorna interface pública
+	// Retorna interface pï¿½blica
 	return {
 		startClient : startClient,
 		patio : patio,
 		limbo : limbo,
 		transferTo : transferTo
 	};
-}();
+}());

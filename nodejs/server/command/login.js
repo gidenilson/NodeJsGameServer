@@ -1,21 +1,21 @@
 module.exports = (function () {
 	var user = "user",
-	password = "pass",
-	client,
-	data,
-	can,
-	toDo,
-	that = this;
+		password = "pass",
+		client,
+		data,
+		can,
+		toDo,
+		that = this;
 
 	can = function () {
-		// É solicitação de login ?
-			return data.login;
+		// ï¿½ solicitaï¿½ï¿½o de login ?
+		return data.login;
 
 	};
 	toDo = function () {
 		// Responde success ou failed
 		if (data.login.username === user && data.login.password === password) {
-			client.send('{"login" : "'+client.uid+'"}');
+			client.send('{"login" : "' + client.uid + '"}');
 			client.mediator.transferTo(client, client.mediator.patio);
 
 			

@@ -4,13 +4,14 @@ module.exports = (function () {
 
 	return function (t) {
 		var title = t,
-		clients = [],
-		exists,
-		addClient,
-		removeClient,
-		getClients,
-		count,
-		clientById;
+			clients = [],
+			exists,
+			addClient,
+			getTitle,
+			removeClient,
+			getClients,
+			count,
+			clientById;
 		uid += 1;
 		// Verifica se cliente já existe
 		exists = function (client) {
@@ -18,25 +19,27 @@ module.exports = (function () {
 		};
 		// Adiciona cliente
 		addClient = function (client) {
-			var list = [];
+			var list = [],
+				key;
 			// Envia mensagem aos outros
 			if (!exists(client)) {
 				for (key in clients) {
 					clients[key].send('{"in" : "' + client.uid + '"}');
 					list.push(clients[key].uid);
 				}
-			// Envia lista de clientes que já estão no place
-			client.send('{"list : ' + JSON.stringify(list) + '"}');
-			clients.push(client);
+				// Envia lista de clientes que já estão no place
+				client.send('{"list : ' + JSON.stringify(list) + '"}');
+				clients.push(client);
 			}
 		};
 		// Remove cliente
 		removeClient = function (client) {
-			var index = clients.indexOf(client);
+			var index = clients.indexOf(client),
+				key;
 			if (index >= 0) {
 				clients.splice(index, 1);
 				for (key in clients) {
-					if (clients[key] != client) {
+					if (clients[key] !== client) {
 						clients[key].send('{"out" : "' + client.uid + '"}');
 					}
 				}

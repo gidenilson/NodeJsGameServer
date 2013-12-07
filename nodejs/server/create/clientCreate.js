@@ -4,10 +4,10 @@ module.exports = (function () {
 		objectType = "client";
 
 	return function (s) {
-		// Variáveis e funções 
+		// Variï¿½veis e funï¿½ï¿½es 
 		var socket = s,
-		send,
-		place;
+			send,
+			place;
 		uid += 1;
 
 		send = function (data) {
