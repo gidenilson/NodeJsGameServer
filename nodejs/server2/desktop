@@ -1,0 +1,183 @@
+<NotepadPlus>
+    <Project name="NodeGameServer">
+        <Folder name="server">
+            <Folder name="command">
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\command\data.js" />
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\command\list.js" />
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\command\login.js" />
+            </Folder>
+            <Folder name="create">
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\create\clientCreate.js" />
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\create\placeCreate.js" />
+            </Folder>
+            <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\app.js" />
+            <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\Cmd.lnk" />
+            <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\index.html" />
+            <File name="C:\Users\Gidenilson\Copy\NodeJs\NodeJsGameServer\nodejs\server\mediator.js" />
+        </Folder>
+        <Folder name="server2">
+            <Folder name="command">
+                <File name="command\data.js" />
+                <File name="command\list.js" />
+                <File name="command\login.js" />
+            </Folder>
+            <Folder name="create">
+                <File name="create\clientCreate.js" />
+                <File name="create\placeCreate.js" />
+            </Folder>
+            <File name="app.js" />
+            <File name="Cmd.lnk" />
+            <File name="index.html" />
+            <File name="mediator.js" />
+            <File name="client.js" />
+            <File name="teste.js" />
+            <File name="place.js" />
+            <File name="lobby.js" />
+            <File name="server.js" />
+        </Folder>
+        <Folder name="ws">
+            <Folder name="bench">
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\bench\parser.benchmark.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\bench\sender.benchmark.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\bench\speed.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\bench\util.js" />
+            </Folder>
+            <Folder name="bin">
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\bin\wscat" />
+            </Folder>
+            <Folder name="build">
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\build\binding.sln" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\build\binding.sln.cache" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\build\bufferutil.vcproj" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\build\config.gypi" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\build\validation.vcproj" />
+            </Folder>
+            <Folder name="doc">
+                <File name="C:\Users\Gidenilson\Copy\NodeJs\node_modules\ws\doc\ws.md" />
+            </Folder>
+            <Folder name="examples">
+                <Folder name="fileapi">
+                    <Folder name="public">
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\public\app.js" />
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\public\index.html" />
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\public\uploader.js" />
+                    </Folder>
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\.npmignore" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\fileapi\server.js" />
+                </Folder>
+                <Folder name="serverstats">
+                    <Folder name="public">
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats\public\index.html" />
+                    </Folder>
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats\server.js" />
+                </Folder>
+                <Folder name="serverstats-express_3">
+                    <Folder name="public">
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats-express_3\public\index.html" />
+                    </Folder>
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats-express_3\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\serverstats-express_3\server.js" />
+                </Folder>
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\examples\ssl.js" />
+            </Folder>
+            <Folder name="lib">
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\browser.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\BufferPool.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\BufferUtil.fallback.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\BufferUtil.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\ErrorCodes.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Receiver.hixie.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Receiver.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Sender.hixie.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Sender.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Validation.fallback.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\Validation.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\WebSocket.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\lib\WebSocketServer.js" />
+            </Folder>
+            <Folder name="node_modules">
+                <Folder name="commander">
+                    <Folder name="lib">
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\lib\commander.js" />
+                    </Folder>
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\.npmignore" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\.travis.yml" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\History.md" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\index.js" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\Makefile" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\commander\Readme.md" />
+                </Folder>
+                <Folder name="nan">
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\nan\.index.js" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\nan\LICENSE" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\nan\nan.h" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\nan\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\nan\README.md" />
+                </Folder>
+                <Folder name="options">
+                    <Folder name="lib">
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\lib\options.js" />
+                    </Folder>
+                    <Folder name="test">
+                        <Folder name="fixtures">
+                            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\test\fixtures\test.conf" />
+                        </Folder>
+                        <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\test\options.test.js" />
+                    </Folder>
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\.npmignore" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\Makefile" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\options\README.md" />
+                </Folder>
+                <Folder name="tinycolor">
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\tinycolor\.npmignore" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\tinycolor\example.js" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\tinycolor\package.json" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\tinycolor\README.md" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\node_modules\tinycolor\tinycolor.js" />
+                </Folder>
+            </Folder>
+            <Folder name="src">
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\src\bufferutil.cc" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\src\validation.cc" />
+            </Folder>
+            <Folder name="test">
+                <Folder name="fixtures">
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\agent1-cert.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\agent1-key.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\ca1-cert.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\ca1-key.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\certificate.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\key.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\request.pem" />
+                    <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\fixtures\textfile" />
+                </Folder>
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\autobahn-server.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\autobahn.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\BufferPool.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\hybi-common.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\Receiver.hixie.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\Receiver.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\Sender.hixie.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\Sender.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\testserver.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\Validation.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\WebSocket.integration.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\WebSocket.test.js" />
+                <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\test\WebSocketServer.test.js" />
+            </Folder>
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\.npmignore" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\.travis.yml" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\binding.gyp" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\builderror.log" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\History.md" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\index.js" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\Makefile" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\package.json" />
+            <File name="C:\Users\Gidenilson\Copy\Computacao\NodeJs\node_modules\ws\README.md" />
+        </Folder>
+    </Project>
+</NotepadPlus>
