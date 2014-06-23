@@ -19,7 +19,7 @@ MY_APP.init = function () {
 	//console.log(this.server.contents);
 	
 	ws = new this.WebSocketServer({
-			port : 8080
+			port : 3000
 		});
 
 	// Inicia conexão de jogo
@@ -29,6 +29,7 @@ MY_APP.init = function () {
 		//guest.place = that.server;
 		that.server.addClient(guest);
 		that.clients.push(guest);
+                
 	});
 	
 	

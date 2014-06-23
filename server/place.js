@@ -1,4 +1,4 @@
-var uid = 0;
+var uid = 0, fs = require('fs'), files;
 /**
 construtor
  */
@@ -15,29 +15,19 @@ var Place = function (t) {
 	//this.command = {};
 };
 
-/**
-retorna o tipo
- */
-Place.prototype.getType = function () {
-	return this.type;
-};
 
-/**
-retorna um resumo do place
- */
-Place.prototype.abstract = function () {
-	var abstract = {
-		type : this.type,
-		uid : this.uid,
-		locked : this.locked
+files = fs.readdirSync('prototype');
 
-	};
-	return abstract;
-};
+    for (i = 0; i < files.length; i += 1) {
+        f = files[i].substr(0, files[i].indexOf('.js'));
+        Place.prototype[f] = require('./prototype/'+f);
+       
+
+    }
 
 /**
 adiciona um place
- */
+*/ 
 Place.prototype.addContent = function (c) {
 	if (c instanceof Place) {
 		this.contents.push(c);
@@ -83,7 +73,7 @@ Place.prototype.createContent = function () {
 
 /**
 destroi um place
- */
+ 
 Place.prototype.destroyContent = function (c) {
 	var i,
 	cl,
@@ -102,38 +92,38 @@ Place.prototype.destroyContent = function (c) {
 	}
 	this.removeContent(c);
 
-};
+};*/
 
 /**
 define uma propriedade
- */
+ 
 Place.prototype.setProp = function (p, v) {
 	if (typeof p === 'string') {
 		this.prop[p] = v;
 	}
-};
+};*/
 
 /**
 retorna uma propriedade
- */
+ 
 Place.prototype.getProp = function (p) {
 	if (this.prop.hasOwnProperty(p)) {
 		return this.prop[p];
 	}
-};
+};*/
 
 /**
 remove uma propriedade
- */
+ 
 Place.prototype.unsetProp = function (p) {
 	if (this.prop.hasOwnProperty(p)) {
 		delete this.prop[p];
 	}
-};
+};*/
 
 /**
 adiciona um cliente
- */
+ 
 Place.prototype.addClient = function (c) {
 	var message = {
 		enter : {
@@ -146,11 +136,11 @@ Place.prototype.addClient = function (c) {
 		c.place = this;
 		//c.socket.send(JSON.stringify(message));
 	}
-};
+};*/
 
 /**
 remove um cliente
- */
+ 
 Place.prototype.removeClient = function (c) {
 	var i,
 	message = {
@@ -171,11 +161,11 @@ Place.prototype.removeClient = function (c) {
 	}
 	return false;
 
-};
+};*/
 
 /**
 lista clientes
- */
+ 
 Place.prototype.listClient = function () {
 	var i,
 	result = [];
@@ -183,7 +173,7 @@ Place.prototype.listClient = function () {
 		result.push(this.clients[i].uid);
 	}
 	return result;
-};
+};*/
 
 /**
 ações

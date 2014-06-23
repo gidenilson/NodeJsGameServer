@@ -10,7 +10,7 @@ var MY_APP = {
 MY_APP.init = function () {
 console.log(Client);
 	var ws = new this.WebSocketServer({
-			port : 80
+			port : 8081
 		});
 
 	// Inicia conexão de jogo
