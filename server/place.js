@@ -1,454 +1,352 @@
 var uid = 0, fs = require('fs'), files;
 /**
-construtor
+ construtor
  */
-var Place = function (t) {
-	uid += 1;
-	this.uid = uid;
-	this.type = t;
-	this.locked = false;
-	this.container = null;
-	this.contents = [];
-	this.clients = [];
-	this.prop = {};
-	//this.action = {};
-	//this.command = {};
+var Place = function(t) {
+    uid += 1;
+    this.uid = uid;
+    this.type = t;
+    this.locked = false;
+    this.container = null;
+    this.contents = [];
+    this.clients = [];
+    this.prop = {};
+    //this.action = {};
+    //this.command = {};
 };
 
-
+var funcPrototype = {};
 files = fs.readdirSync('prototype');
 
-    for (i = 0; i < files.length; i += 1) {
-        f = files[i].substr(0, files[i].indexOf('.js'));
-        Place.prototype[f] = require('./prototype/'+f);
-       
+for (i = 0; i < files.length; i += 1) {
+    f = files[i].substr(0, files[i].indexOf('.js'));
+    funcPrototype[f] = require('./prototype/' + f);
 
+
+}
+Place.prototype = funcPrototype;
+
+/**
+ adiciona um place
+ 
+Place.prototype.addContent = function(c) {
+    if (c instanceof Place) {
+        this.contents.push(c);
+        c.container = this;
+    } else {
+        console.log('error : place.js -> addContent');
+    }
+};*/
+
+/**
+ remove um place
+ */
+Place.prototype.removeContent = function(c) {
+    var i;
+    if (c instanceof Place) {
+        for (i = 0; i < this.contents.length; i += 1) {
+            if (c === this.contents[i]) {
+                this.contents.splice(i, 1);
+                c.container = null;
+                return true;
+            }
+        }
+    }
+    return false;
+
+};
+
+/**
+ cria um place
+ */
+Place.prototype.createContent = function() {
+    var c,
+            createType = this.types[this.type].create;
+    if (createType) {
+        c = new Place(createType);
+        this.addContent(c);
+        return c;
+    } else {
+        return false;
     }
 
-/**
-adiciona um place
-*/ 
-Place.prototype.addContent = function (c) {
-	if (c instanceof Place) {
-		this.contents.push(c);
-		c.container = this;
-	} else {
-		console.log('error : place.js -> addContent');
-	}
 };
 
-/**
-remove um place
- */
-Place.prototype.removeContent = function (c) {
-	var i;
-	if (c instanceof Place) {
-		for (i = 0; i < this.contents.length; i += 1) {
-			if (c === this.contents[i]) {
-				this.contents.splice(i, 1);
-				c.container = null;
-				return true;
-			}
-		}
-	}
-	return false;
 
-};
 
 /**
-cria um place
- */
-Place.prototype.createContent = function () {
-	var c,
-	createType = this.types[this.type].create;
-	if (createType) {
-		c = new Place(createType);
-		this.addContent(c);
-		return c;
-	} else {
-		return false;
-	}
-
-};
-
-/**
-destroi um place
- 
-Place.prototype.destroyContent = function (c) {
-	var i,
-	cl,
-	msg = {
-		removed : {
-			leave : c.uid,
-			enter : c.container.uid
-		}
-	};
-	for (i = 0; i < c.clients.length; i += 1) {
-		cl = c.clients[i];
-		cl.socket.send(JSON.stringify(msg));
-		cl.place = this;
-		//console.log(cl);
-
-	}
-	this.removeContent(c);
-
-};*/
-
-/**
-define uma propriedade
- 
-Place.prototype.setProp = function (p, v) {
-	if (typeof p === 'string') {
-		this.prop[p] = v;
-	}
-};*/
-
-/**
-retorna uma propriedade
- 
-Place.prototype.getProp = function (p) {
-	if (this.prop.hasOwnProperty(p)) {
-		return this.prop[p];
-	}
-};*/
-
-/**
-remove uma propriedade
- 
-Place.prototype.unsetProp = function (p) {
-	if (this.prop.hasOwnProperty(p)) {
-		delete this.prop[p];
-	}
-};*/
-
-/**
-adiciona um cliente
- 
-Place.prototype.addClient = function (c) {
-	var message = {
-		enter : {
-			type : this.type,
-			uid : this.uid
-		}
-	};
-	if (c.class === 'Client') {
-		this.clients.push(c);
-		c.place = this;
-		//c.socket.send(JSON.stringify(message));
-	}
-};*/
-
-/**
-remove um cliente
- 
-Place.prototype.removeClient = function (c) {
-	var i,
-	message = {
-		exit : {
-			type : this.type,
-			uid : this.uid
-		}
-	};
-	if (c.class === 'Client') {
-		for (i = 0; i < this.clients.length; i += 1) {
-			if (c === this.clients[i]) {
-				this.clients.splice(i, 1);
-				c.place = this.container;
-				//c.socket.send(JSON.stringify(message));
-				return true;
-			}
-		}
-	}
-	return false;
-
-};*/
-
-/**
-lista clientes
- 
-Place.prototype.listClient = function () {
-	var i,
-	result = [];
-	for (i = 0; i < this.clients.length; i += 1) {
-		result.push(this.clients[i].uid);
-	}
-	return result;
-};*/
-
-/**
-ações
+ ações
  */
 Place.prototype.action = {};
 /**
-envia lista de places contidos
+ envia lista de places contidos
  */
-Place.prototype.action.listContent = function (client, data) {
-	var i,
-	result = {
-		c : data.c,
-		p : []
-	};
+Place.prototype.action.listContent = function(client, data) {
+    var i,
+            result = {
+                c: data.c,
+                p: []
+            };
 
-	for (i = 0; i < client.place.contents.length; i += 1) {
-		result.p.push({
-			uid : client.place.contents[i].uid,
-			type : client.place.contents[i].type
-		});
-	}
-	client.socket.send(JSON.stringify(result));
+    for (i = 0; i < client.place.contents.length; i += 1) {
+        result.p.push({
+            uid: client.place.contents[i].uid,
+            type: client.place.contents[i].type
+        });
+    }
+    client.socket.send(JSON.stringify(result));
 };
 
 /**
-entra num place
+ entra num place
  */
-Place.prototype.action.enter = function (client, data) {
-	var i,
-	place,
-	result = {
-		c : data.c
-	},
-	oldplace = client.place;
-	for (i = 0; i < client.place.contents.length; i += 1) {
-		place = client.place.contents[i];
-		data.p.uid = parseInt(data.p.uid);
-		if (place.uid === data.p.uid) {
+Place.prototype.action.enter = function(client, data) {
+    var i,
+            place,
+            result = {
+                c: data.c
+            },
+    oldplace = client.place;
+    for (i = 0; i < client.place.contents.length; i += 1) {
+        place = client.place.contents[i];
+        data.p.uid = parseInt(data.p.uid);
+        if (place.uid === data.p.uid) {
 
-			if (place.locked) { //não entra em place bloqueado
-				return;
-			}
-			oldplace.removeClient(client);
-			place.addClient(client);
-			client.place = place;
-			result.p = {
-				leave : oldplace.uid,
-				enter : place.uid
-			};
-			client.socket.send(JSON.stringify(result));
-			//se é room, avisa outros
-			if (place.type === "room") {
-				result = {
-					enter : client.uid
-				};
-				for (i = 0; i < place.clients.length; i += 1) {
-					if(place.clients[i].uid !== client.uid){
-						place.clients[i].socket.send(JSON.stringify(result));
-					}
-					
-				}
-			}
-			return;
-		}
-	}
+            if (place.locked) { //não entra em place bloqueado
+                return;
+            }
+            oldplace.removeClient(client);
+            place.addClient(client);
+            client.place = place;
+            result.p = {
+                leave: oldplace.uid,
+                enter: place.uid
+            };
+            client.socket.send(JSON.stringify(result));
+            //se é room, avisa outros
+            if (place.type === "room") {
+                result = {
+                    enter: client.uid
+                };
+                for (i = 0; i < place.clients.length; i += 1) {
+                    if (place.clients[i].uid !== client.uid) {
+                        place.clients[i].socket.send(JSON.stringify(result));
+                    }
 
-};
-
-/**
-sai do place
- */
-Place.prototype.action.leave = function (client, data) {
-	var i,
-	place,
-	result = {
-		c : data.c
-	},
-	oldplace = client.place;
-
-	//desconecta se é servidor
-	if (client.place.type === "server") {
-		client.socket.close();
-		return;
-	}
-
-	place = client.place.container;
-
-	oldplace.removeClient(client);
-	place.addClient(client);
-	client.place = place;
-	result.p = {
-		leave : oldplace.uid,
-		enter : place.uid
-	};
-	client.socket.send(JSON.stringify(result));
-
-	//se é room, avisa outros
-	if (oldplace.type === "room") {
-		result = {
-			leave : client.uid
-		};
-		for (i = 0; i < oldplace.clients.length; i += 1) {
-			oldplace.clients[i].socket.send(JSON.stringify(result));
-		}
-	}
+                }
+            }
+            return;
+        }
+    }
 
 };
 
 /**
-envia informações básicas do place
+ sai do place
  */
-Place.prototype.action.getInfo = function (client, data) {
-	var info = {
-		c : data.c,
-		p : client.place.abstract()
-	};
-	client.socket.send(JSON.stringify(info));
+Place.prototype.action.leave = function(client, data) {
+    var i,
+            place,
+            result = {
+                c: data.c
+            },
+    oldplace = client.place;
+
+    //desconecta se é servidor
+    if (client.place.type === "server") {
+        client.socket.close();
+        return;
+    }
+
+    place = client.place.container;
+
+    oldplace.removeClient(client);
+    place.addClient(client);
+    client.place = place;
+    result.p = {
+        leave: oldplace.uid,
+        enter: place.uid
+    };
+    client.socket.send(JSON.stringify(result));
+
+    //se é room, avisa outros
+    if (oldplace.type === "room") {
+        result = {
+            leave: client.uid
+        };
+        for (i = 0; i < oldplace.clients.length; i += 1) {
+            oldplace.clients[i].socket.send(JSON.stringify(result));
+        }
+    }
 
 };
 
 /**
-envia propriedades
+ envia informações básicas do place
  */
-Place.prototype.action.getProp = function (client, data) {
-	var i,
-	result = {
-		c : data.c,
-		p : {}
-
-	};
-
-	if (typeof data.p === 'undefined') {
-		result.p = client.place.prop;
-	} else {
-		for (i = 0; i < data.p.length; i += 1) {
-			if (client.place.prop.hasOwnProperty(data.p[i])) {
-				result.p[data.p[i]] = client.place.prop[data.p[i]];
-			}
-		}
-	}
-	client.socket.send(JSON.stringify(result));
+Place.prototype.action.getInfo = function(client, data) {
+    var info = {
+        c: data.c,
+        p: client.place.abstract()
+    };
+    client.socket.send(JSON.stringify(info));
 
 };
 
 /**
-define propriedades
+ envia propriedades
  */
-Place.prototype.action.setProp = function (client, data) {
-	var p,
-	result = {};
-	for (p in data.p) {
-		if (data.p.hasOwnProperty(p)) {
-			client.place.setProp(p, data.p[p]);
-		}
+Place.prototype.action.getProp = function(client, data) {
+    var i,
+            result = {
+                c: data.c,
+                p: {}
 
-	}
-	result.c = data.c;
-	client.socket.send(JSON.stringify(result));
-};
+            };
 
-/**
-destroi propriedades
- */
-Place.prototype.action.unsetProp = function (client, data) {
-	var i;
-
-	if (typeof data.p === 'undefined') {
-		client.place.prop = {};
-	} else {
-		for (i = 0; i < data.p.length; i += 1) {
-			if (client.place.prop.hasOwnProperty(data.p[i])) {
-				delete client.place.prop[data.p[i]];
-			}
-		}
-	}
-	client.socket.send(JSON.stringify(data.c));
+    if (typeof data.p === 'undefined') {
+        result.p = client.place.prop;
+    } else {
+        for (i = 0; i < data.p.length; i += 1) {
+            if (client.place.prop.hasOwnProperty(data.p[i])) {
+                result.p[data.p[i]] = client.place.prop[data.p[i]];
+            }
+        }
+    }
+    client.socket.send(JSON.stringify(result));
 
 };
 
 /**
-bloqueia place
+ define propriedades
  */
-Place.prototype.action.lock = function (client, data) {
-	client.place.locked = true;
-	client.socket.send(JSON.stringify(data.c));
+Place.prototype.action.setProp = function(client, data) {
+    var p,
+            result = {};
+    for (p in data.p) {
+        if (data.p.hasOwnProperty(p)) {
+            client.place.setProp(p, data.p[p]);
+        }
+
+    }
+    result.c = data.c;
+    client.socket.send(JSON.stringify(result));
+};
+
+/**
+ destroi propriedades
+ */
+Place.prototype.action.unsetProp = function(client, data) {
+    var i;
+
+    if (typeof data.p === 'undefined') {
+        client.place.prop = {};
+    } else {
+        for (i = 0; i < data.p.length; i += 1) {
+            if (client.place.prop.hasOwnProperty(data.p[i])) {
+                delete client.place.prop[data.p[i]];
+            }
+        }
+    }
+    client.socket.send(JSON.stringify(data.c));
 
 };
 
 /**
-desbloqueia o place
+ bloqueia place
  */
-Place.prototype.action.unlock = function (client, data) {
-	client.place.locked = false;
-	client.socket.send(JSON.stringify(data.c));
+Place.prototype.action.lock = function(client, data) {
+    client.place.locked = true;
+    client.socket.send(JSON.stringify(data.c));
 
 };
 
 /**
-cria um place
+ desbloqueia o place
  */
-Place.prototype.action.createContent = function (client, data) {
-	var result = {
-		c : data.c
-	},
-	c = client.place.createContent();
-	if (c) {
-		result.p = {
-			uid : c.uid,
-			type : c.type
-		};
-		client.socket.send(JSON.stringify(result));
-	}
+Place.prototype.action.unlock = function(client, data) {
+    client.place.locked = false;
+    client.socket.send(JSON.stringify(data.c));
 
 };
 
 /**
-destroi um place
+ cria um place
  */
-Place.prototype.action.destroyContent = function (client, data) {
-	var i,
-	place,
-	result = {
-		c : data.c
-	};
-	for (i = 0; i < client.place.contents.length; i += 1) {
-		place = client.place.contents[i];
-		data.p.uid = parseInt(data.p.uid);
-		if (place.uid === data.p.uid) {
-			client.place.destroyContent(place);
-			client.socket.send(JSON.stringify(result));
-			return;
-		}
-	}
+Place.prototype.action.createContent = function(client, data) {
+    var result = {
+        c: data.c
+    },
+    c = client.place.createContent();
+    if (c) {
+        result.p = {
+            uid: c.uid,
+            type: c.type
+        };
+        client.socket.send(JSON.stringify(result));
+    }
 
 };
 
 /**
-envia lista de clientes
+ destroi um place
  */
-Place.prototype.action.listParticipant = function (client, data) {
-	var result = {
-		c : data.c,
-		p : client.place.listClient()
-	};
-	client.socket.send(JSON.stringify(result));
+Place.prototype.action.destroyContent = function(client, data) {
+    var i,
+            place,
+            result = {
+                c: data.c
+            };
+    for (i = 0; i < client.place.contents.length; i += 1) {
+        place = client.place.contents[i];
+        data.p.uid = parseInt(data.p.uid);
+        if (place.uid === data.p.uid) {
+            client.place.destroyContent(place);
+            client.socket.send(JSON.stringify(result));
+            return;
+        }
+    }
+
 };
 
 /**
-mapa de comandos
+ envia lista de clientes
+ */
+Place.prototype.action.listParticipant = function(client, data) {
+    var result = {
+        c: data.c,
+        p: client.place.listClient()
+    };
+    client.socket.send(JSON.stringify(result));
+};
+
+/**
+ mapa de comandos
  */
 Place.prototype.command = {
-
-	"pl1" : "getProp",
-	"pl2" : "setProp",
-	"pl3" : "unsetProp",
-	"pl4" : "getInfo",
-	"pl5" : "listContent",
-	"pl6" : "enter",
-	"pl7" : "leave",
-	"pl8" : "lock",
-	"pl9" : "unlock",
-	"pl10" : "listParticipant",
-	"pl11" : "createContent",
-	"pl12" : "destroyContent"
+    "pl1": "getProp",
+    "pl2": "setProp",
+    "pl3": "unsetProp",
+    "pl4": "getInfo",
+    "pl5": "listContent",
+    "pl6": "enter",
+    "pl7": "leave",
+    "pl8": "lock",
+    "pl9": "unlock",
+    "pl10": "listParticipant",
+    "pl11": "createContent",
+    "pl12": "destroyContent"
 };
 Place.prototype.types = {
-	"server" : {
-		create : "lobby"
-	},
-	"lobby" : {
-		create : "room"
-	},
-	"room" : {
-		create : false
-	}
+    "server": {
+        create: "lobby"
+    },
+    "lobby": {
+        create: "room"
+    },
+    "room": {
+        create: false
+    }
 };
 
 module.exports = Place;
