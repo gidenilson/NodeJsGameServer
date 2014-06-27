@@ -15,20 +15,11 @@ var Place = function(t) {
     //this.command = {};
 };
 
-var funcPrototype = {};
-files = fs.readdirSync('prototype');
 
-for (i = 0; i < files.length; i += 1) {
-    f = files[i].substr(0, files[i].indexOf('.js'));
-    funcPrototype[f] = require('./prototype/' + f);
-
-
-}
-Place.prototype = funcPrototype;
 
 /**
  adiciona um place
- 
+ */
 Place.prototype.addContent = function(c) {
     if (c instanceof Place) {
         this.contents.push(c);
@@ -36,7 +27,145 @@ Place.prototype.addContent = function(c) {
     } else {
         console.log('error : place.js -> addContent');
     }
-};*/
+};
+
+/**
+ retorna resumo do place
+ */
+Place.prototype.abstract = function() {
+    var abstract = {
+        type: this.type,
+        uid: this.uid,
+        locked: this.locked
+
+    };
+    return abstract;
+};
+
+/**
+ adiciona um cliente
+ */
+Place.prototype.addClient = function(c) {
+    var message = {
+        enter: {
+            type: this.type,
+            uid: this.uid
+        }
+    };
+    if (c.class === 'Client') {
+        this.clients.push(c);
+        c.place = this;
+        //c.socket.send(JSON.stringify(message));
+    }
+};
+
+/**
+ distroi um conteúdo
+ */
+Place.prototype.destroyContent = function(c) {
+    var i,
+            cl,
+            msg = {
+        removed: {
+            leave: c.uid,
+            enter: c.container.uid
+        }
+    };
+    for (i = 0; i < c.clients.length; i += 1) {
+        cl = c.clients[i];
+        cl.socket.send(JSON.stringify(msg));
+        cl.place = this;
+        //console.log(cl);
+
+    }
+    this.removeContent(c);
+
+};
+/**
+ * retorna propriedades
+ */
+Place.prototype.getProp = function(p) {
+    if (this.prop.hasOwnProperty(p)) {
+        return this.prop[p];
+    }
+};
+/**
+ retorna o tipo do place
+ */
+Place.prototype.getType = function() {
+    return this.type;
+};
+
+/**
+ retorna lista de clientes
+ */
+Place.prototype.listClient = function(p) {
+    var i, x,
+            result = [];
+    for (i = 0; i < this.clients.length; i += 1) {
+        result.push({uid : this.clients[i].uid});
+        //acrescenta propriedades solicitadas
+        if (p) {
+            for (x = 0; x < p.length; x++) {
+                //console.log(p[x]);
+                if (this.clients[i].prop.hasOwnProperty(p[x])) {
+                    result[i][p[x]] = this.clients[i].prop[p[x]];
+                }
+            }
+        }
+    }
+    return result;
+};
+
+/**
+ * remove um cliente
+ * @param {type} c
+ * @returns {Boolean}
+ */
+Place.prototype.removeClient = function(c) {
+    var i,
+            message = {
+        exit: {
+            type: this.type,
+            uid: this.uid
+        }
+    };
+    if (c.class === 'Client') {
+        for (i = 0; i < this.clients.length; i += 1) {
+            if (c === this.clients[i]) {
+                this.clients.splice(i, 1);
+                c.place = this.container;
+                //c.socket.send(JSON.stringify(message));
+                return true;
+            }
+        }
+    }
+    return false;
+
+};
+
+/**
+ * define uma propriedade
+ * @param {type} p
+ * @param {type} v
+ * @returns {undefined}
+ */
+Place.prototype.setProp = function(p, v) {
+    if (typeof p === 'string') {
+        this.prop[p] = v;
+    }
+};
+
+/**
+ * remove uma propriedade
+ * @param {type} p
+ * @returns {undefined}
+ */
+Place.prototype.unsetProp = function(p) {
+    if (this.prop.hasOwnProperty(p)) {
+        delete this.prop[p];
+    }
+};
 
 /**
  remove um place
@@ -82,17 +211,29 @@ Place.prototype.action = {};
  envia lista de places contidos
  */
 Place.prototype.action.listContent = function(client, data) {
-    var i,
+    var i, x,
             result = {
-                c: data.c,
-                p: []
-            };
+        c: data.c,
+        p: []
+    };
 
     for (i = 0; i < client.place.contents.length; i += 1) {
+
         result.p.push({
             uid: client.place.contents[i].uid,
             type: client.place.contents[i].type
         });
+        //acrescenta propriedades solicitadas
+        if (data.p) {
+            for (x = 0; x < data.p.length; x++) {
+                //console.log(data.p[x]);
+                if (client.place.contents[i].prop.hasOwnProperty(data.p[x])) {
+                    result.p[i][data.p[x]] = client.place.contents[i].prop[data.p[x]];
+                }
+            }
+        }
+
+
     }
     client.socket.send(JSON.stringify(result));
 };
@@ -104,8 +245,8 @@ Place.prototype.action.enter = function(client, data) {
     var i,
             place,
             result = {
-                c: data.c
-            },
+        c: data.c
+    },
     oldplace = client.place;
     for (i = 0; i < client.place.contents.length; i += 1) {
         place = client.place.contents[i];
@@ -148,8 +289,8 @@ Place.prototype.action.leave = function(client, data) {
     var i,
             place,
             result = {
-                c: data.c
-            },
+        c: data.c
+    },
     oldplace = client.place;
 
     //desconecta se é servidor
@@ -199,10 +340,10 @@ Place.prototype.action.getInfo = function(client, data) {
 Place.prototype.action.getProp = function(client, data) {
     var i,
             result = {
-                c: data.c,
-                p: {}
+        c: data.c,
+        p: {}
 
-            };
+    };
 
     if (typeof data.p === 'undefined') {
         result.p = client.place.prop;
@@ -295,8 +436,8 @@ Place.prototype.action.destroyContent = function(client, data) {
     var i,
             place,
             result = {
-                c: data.c
-            };
+        c: data.c
+    };
     for (i = 0; i < client.place.contents.length; i += 1) {
         place = client.place.contents[i];
         data.p.uid = parseInt(data.p.uid);
@@ -315,7 +456,7 @@ Place.prototype.action.destroyContent = function(client, data) {
 Place.prototype.action.listParticipant = function(client, data) {
     var result = {
         c: data.c,
-        p: client.place.listClient()
+        p: client.place.listClient(data.p)
     };
     client.socket.send(JSON.stringify(result));
 };

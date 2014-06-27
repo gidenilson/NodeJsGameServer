@@ -24,7 +24,7 @@ var Client = function (s) {
 	});
 };
 /**
-ações do cliente
+aÃ§Ãµes do cliente
  */
 var action = {};
 
@@ -140,7 +140,7 @@ Client.prototype.sendMessage = function (data) {
 	if (typeof data.uid === 'undefined') { //envia para todos
 		l = clients.length;
 		for (i = 0; i < l; i += 1) {
-			if (this.uid !== clients[i].uid) { //não envia para o remetente
+			if (this.uid !== clients[i].uid) { //nï¿½o envia para o remetente
 				clients[i].socket.send(JSON.stringify(msg));
 			}
 
@@ -161,7 +161,7 @@ Client.prototype.sendMessage = function (data) {
 };
 
 /**
-executa uma ação
+executa uma aï¿½ï¿½o
  */
 Client.prototype.exec = function (data) {
 	var i,
@@ -183,13 +183,13 @@ Client.prototype.exec = function (data) {
 		return;
 	}
 
-	//ação do client
+	//aï¿½ï¿½o do client
 	if (this.command.hasOwnProperty(data.c)) {
 		this.action[this.command[data.c]](this, data);
 		return;
 	}
 
-	// ação do place
+	// aï¿½ï¿½o do place
 	if (typeof this.place.action[this.place.command[data.c]] === 'function') {
 		this.place.action[this.place.command[data.c]](this, data);
 	}
@@ -197,12 +197,12 @@ Client.prototype.exec = function (data) {
 };
 
 /**
-trata perda de conexão
+trata perda de conexï¿½o
 */
 Client.prototype.close = function (data){
 	var i, oldplace = this.place;
 	oldplace.removeClient(this);
-		//se é room, avisa outros
+		//se ï¿½ room, avisa outros
 	if(oldplace.type === "room"){
 		result = {leave : this.uid};
 		for(i = 0; i < oldplace.clients.length; i += 1){
@@ -217,11 +217,7 @@ retorna um resumo do cliente
 Client.prototype.abstract = function () {
 	var abstract = {
 		uid : this.uid,
-		locked : this.locked,
-		place : {
-			type : this.place.type,
-			uid : this.place.uid
-		}
+		locked : this.locked
 	};
 	return abstract;
 };
